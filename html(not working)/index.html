@@ -1,0 +1,68 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ثبت لوگوی نسل ظهور</title>
+</head>
+
+<body>
+    <div id="content">
+        <img style="position: absolute;" id="preview">
+        <img src="./APS Logo - White.png" width="100" style="position: absolute; margin: 50px; display: none;"
+            id="logo">
+        <img id="result">
+    </div>
+    <div id="form">
+        <input id="imgUpload" title="تصویر را انتخاب کنید" accept=".jpg, .jpeg, .png" type="file">
+        <input value="logoType-w" name="logoType" style="margin: 20px 0;" type="radio">سفید
+        <input value="logoType-d" name="logoType" type="radio">مشکی
+        <input value="logoType-c" name="logoType" type="radio">رنگی تیره
+    </div>
+</body>
+<script src="./html2canvas.min.js"></script>
+<script src="./jquery/jquery.min.js"></script>
+<script>
+    var imgUpE = document.getElementById('imgUpload');
+    var preview = document.getElementById('preview');
+    var logo = document.getElementById('logo');
+    var content = document.getElementById('content');
+
+    const viewPhoto = () => {
+        const file = imgUpE.files;
+        if (file) {
+            const fileReader = new FileReader();
+            fileReader.onload = event => {
+                preview.setAttribute('src', event.target.result);
+                switch (document.querySelector(`[name="logoType"]:checked`).value) {
+                    case 'logoType-w':
+                        logo.setAttribute('src', './Aps Logo - White.png');
+                        break;
+                    case 'logoType-d':
+                        logo.setAttribute('src', './Aps Logo - Black.png');
+                        break;
+                    case 'logoType-c':
+                        logo.setAttribute('src', './Aps Logo - Color.png');
+                        break;
+                }
+                form.style.display = 'none';
+                logo.style.display = 'block';
+
+
+
+
+                html2canvas(content).then(
+                    function (canvas) {
+                        document
+                            .getElementById('result')
+                            .appendChild(canvas);
+                    })
+            }
+            fileReader.readAsDataURL(file[0]);
+        }
+    }
+    imgUpE.addEventListener('change', viewPhoto);
+</script>
+
+</html>
